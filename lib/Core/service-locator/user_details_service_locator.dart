@@ -1,6 +1,5 @@
 part of 'service_locator.dart';
 
-
 userDetailsServiceLocator() {
   // getIt.registerLazySingleton<UserDetailsRepositoryRemoteDataSource>(() =>
   //     UserDetailsRemoteDataSourceImpl(

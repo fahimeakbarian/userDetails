@@ -13,7 +13,8 @@ linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
   # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
   #
   # Instead of disabling a lint rule for the entire project in the
   # section below, it can also be suppressed for a single line of code
@@ -21,8 +22,25 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    avoid_print: true  # Uncomment to disable the `avoid_print` rule
+    prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    library_prefixes: true
+    file_names: true
+    package_names: true
+    camel_case_extensions: true
+    camel_case_types: true
+    non_constant_identifier_names: true
+    constant_identifier_names: true
+    directives_ordering: true
+    lines_longer_than_80_chars: true
+    curly_braces_in_flow_control_structures: true
+    avoid_types_as_parameter_names: true
+    avoid_unnecessary_containers: true
+    empty_catches: true
+    combinators_ordering: true
+    sort_child_properties_last: true
+    sort_constructors_first: true
+    library_private_types_in_public_api: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

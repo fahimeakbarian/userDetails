@@ -1,27 +1,28 @@
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-
-enum ErrorType { socketException, formatException, networkException }
+import 'package:user_details/Core/Utils/enums.dart';
 
 class Failure extends Equatable implements Exception {
   const Failure(
-      {this.message, this.type,
-        //this.networkException,
-        this.dioException});
+      {this.message,
+      this.type,
+      //this.networkException,
+      this.dioException});
 
   factory Failure.networkException(
       {required ErrorType type,
-       // required ApiResponse networkException,
-        required String message}) {
+      // required ApiResponse networkException,
+      required String message}) {
     return Failure(
-        message: message,
-        type: ErrorType.networkException,
-        //networkException: networkException
+      message: message,
+      type: ErrorType.networkException,
+      //networkException: networkException
     );
   }
 
   final String? message;
   final ErrorType? type;
+
   //final ApiResponse? networkException;
   final DioException? dioException;
 
@@ -29,11 +30,13 @@ class Failure extends Equatable implements Exception {
   String toString() {
     return 'Failure{message: $message, type: $type, '
         // 'dioException: $networkException}'
-    ;
+        ;
   }
 
   @override
-  List<Object?> get props => [message, type,
-    //networkException
-    dioException];
+  List<Object?> get props => [
+        message, type,
+        //networkException
+        dioException
+      ];
 }
