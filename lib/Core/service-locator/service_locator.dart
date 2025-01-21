@@ -7,5 +7,6 @@ part 'user_details_service_locator.dart';
 GetIt getIt = GetIt.I;
 
 setUpServiceLocator() {
+  getIt.registerSingleton<DioRequestManager>(DioRequestManager());
   userDetailsServiceLocator();
 }

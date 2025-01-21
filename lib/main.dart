@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_details/Core/Utils/app_bloc_observe.dart';
+import 'package:user_details/Core/Utils/config.dart';
+import 'package:user_details/Core/service-locator/service_locator.dart';
+import 'package:user_details/features/user_details/presentation/pages/user_detail_page.dart';
 
-void main()   {
-  runApp(const MyApp());
+Future<void> main()   async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setUpServiceLocator();
+  Bloc.observer = AppBlocObserver();
+  runApp(Center(
+    child: ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: Config.maxWidth),
+      child: const MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  UserDetailsPage(),
     );
   }
 }

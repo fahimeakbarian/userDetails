@@ -19,7 +19,7 @@ class UserDetailsRemoteDataSourceImpl implements UserDetailsRepositoryRemoteData
       url: Config.apiUrl,
       // queryParameters: params?.toJson()
     )
-        .then((value) => UserDetailsModel.fromJson(value.data['result']));
+        .then((value) => UserDetailsModel.fromJson(value.data));
     return userDetailsResult;
   }
 }

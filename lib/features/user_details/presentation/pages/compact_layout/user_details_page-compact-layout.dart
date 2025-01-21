@@ -3,19 +3,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_details/features/user_details/presentation/manager/user_details_cubit.dart';
 
 class UserDetailsPageCompactLayout extends StatelessWidget {
-   UserDetailsPageCompactLayout({
+   const UserDetailsPageCompactLayout({
     super.key,
   });
-  final TextEditingController phoneNumberController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'UserDetails',
-        ),
-      ),
-      body: Text(''),
-    );
+    var userDetails =
+    context.select((UserDetailsCubit b) => (b.state as UserDetailsSuccess));
+    return
+
+       Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Display user name and email
+          Text(
+            'Name: ${userDetails.name}',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Email: ${userDetails.email}',
+            style: TextStyle(fontSize: 16),
+          ),
+        ],
+      )
+    ;
   }
 }

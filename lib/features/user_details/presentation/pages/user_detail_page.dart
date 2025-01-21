@@ -16,36 +16,74 @@ class UserDetailsPage extends StatefulWidget {
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
+
+  final _phoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'UserDetails',
+    return BlocProvider(
+      create: (context) => getIt<UserDetailsCubit>()..getUserDetails(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('User Details'),
         ),
-      ),
-      body: BlocProvider(
-        create: (context) => getIt<UserDetailsCubit>()..getUserDetails(),
-        child: BlocConsumer<UserDetailsCubit, UserDetailsState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
-          builder: (context, state) {
-            Widget contentWidget = Container();
-            if (state is UserDetailsLoading) {
-              contentWidget = const LoadingWidget();
-            }
-            else if (state is UserDetailsSuccess) {
-              contentWidget =  ContentWidget();
-            }
-            else if (state is UserDetailsFailure) {
-              contentWidget = ErrorNetWorkWidget(
-                  title: state.errorMessage
-                  //retryFunc: () => context.read<UserDetailsBloc>()..add(GetUserDetails())
-                  );
-            }
-            return contentWidget;
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BlocBuilder<UserDetailsCubit, UserDetailsState>(
+                  builder: (context, state) {
+                    if (state is UserDetailsLoading) {
+                      return LoadingWidget();
+                    } else if (state is UserDetailsSuccess) {
+                      return ContentWidget();
+                    } else  if( state is UserDetailsFailure){
+                      return ErrorNetWorkWidget(
+                          title: state.errorMessage
+                        //retryFunc: () => context.read<UserDetailsBloc>()..add(GetUserDetails())
+                      );
+                    }else{
+                      return Container();
+                    }
+                  },
+                ),
+                SizedBox(height: 20),
+                // Phone number input
+                TextFormField(
+                  controller: _phoneController,
+                  decoration: InputDecoration(
+                    labelText: 'Phone Number',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    // Regex for validating Iranian phone number
+                    final phoneRegex = RegExp(r'^(\+98|0)?9\d{9}$');
+                    if (!phoneRegex.hasMatch(value ?? '')) {
+                      return 'Please enter a valid Iranian phone number';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 20),
+                // Submit button
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        // Call the method to submit the phone number
+                        //context.read<UserDetailsCubit>().submitPhoneNumber(_phoneController.text);
+                      }
+                    },
+                    child: Text('Submit'),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -62,7 +100,7 @@ class ContentWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < Config.maxWidth) {
-          return  UserDetailsPageCompactLayout();
+          return  const UserDetailsPageCompactLayout();
         } else {
           return const UserDetailsPageExpandLayout();
         }

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:user_details/Core/usecase/usecase.dart';
+import 'package:user_details/features/user_details/data/models/user_details_model.dart';
 import 'package:user_details/features/user_details/domain/use_cases/get_user_details_usecase.dart';
 import 'package:user_details/features/user_details/domain/use_cases/submit_user_phone_number_usecase.dart';
 
@@ -35,12 +36,13 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   Future<void> getUserDetails() async {
     emit(UserDetailsLoading());
 
-    try {
+      final userApiResponse = await getUserDetailsUseCase.call(NoParams());
+    userApiResponse.fold((l) {
+      emit(UserDetailsFailure(errorMessage: l.message??'api error'));
+    }, (r) {
+      var user = r as UserDetailsModel;
+      emit(UserDetailsSuccess(name: user.name,id: user.id, email: user.email));
+    });
 
-      final user = await getUserDetailsUseCase.call(NoParams());
-      // emit(UserDetailsSuccess());
-    } catch (error) {
-      emit(UserDetailsFailure(error.toString()));
-    }
   }
 }

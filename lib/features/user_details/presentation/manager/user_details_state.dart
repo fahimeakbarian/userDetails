@@ -15,17 +15,32 @@ class UserDetailsLoading extends UserDetailsState {}
 
 class UserDetailsSuccess extends UserDetailsState {
 
-  const UserDetailsSuccess(this.name, this.id);
+  const UserDetailsSuccess({required this.id,  required this.name, required this.email});
   final String name;
   final int id;
+  final String email;
 
   @override
-  List<Object> get props => [name, id];
+  List<Object> get props => [name, id,email];
+
+  UserDetailsSuccess copyWith({
+    String? name,
+    String? email,
+    int? id,
+
+  }) {
+    return UserDetailsSuccess(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      id: id ?? this.id,
+
+    );
+  }
 }
 
 class UserDetailsFailure extends UserDetailsState {
 
-  const UserDetailsFailure(this.errorMessage);
+  const UserDetailsFailure({required this.errorMessage});
   final String errorMessage;
 
   @override
