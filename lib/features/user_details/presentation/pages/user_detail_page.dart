@@ -57,11 +57,11 @@ class ContentWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < Config.maxWidth) {
-    return const UserDetailsPageCompactLayout();
-    } else {
-      return const UserDetailsPageExpandLayout();
-    }
-    },
+          return const UserDetailsPageCompactLayout();
+        } else {
+          return const UserDetailsPageExpandLayout();
+        }
+      },
     );
   }
 }
