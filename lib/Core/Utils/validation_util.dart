@@ -6,21 +6,7 @@ String? validationMobile(String? mobile) {
   }
 }
 
-String? validatePhone(String? phone) {
-  if (isPhoneValid(phone!)) {
-    return null;
-  } else {
-    return 'invalid_phone_number';
-  }
-}
 
-String? validateHasValue(String? input) {
-  if (isNotEmpty(input)) {
-    return null;
-  } else {
-    return 'required_information';
-  }
-}
 
 bool isMobileValid(String mobileNumber) {
   //https://regex101.com/r/mhXP2g/2
@@ -33,16 +19,6 @@ bool isMobileValid(String mobileNumber) {
   }
 }
 
-bool isPhoneValid(String phoneNumber) {
-  String phonePattern = r'^(\\+98|0)?9\\d{9}$';
-  RegExp phoneRegex = RegExp(phonePattern);
-  return phoneRegex.hasMatch(phoneNumber);
-}
 
-bool isNotEmpty(String? inputValue) {
-  if (inputValue == null || inputValue.isEmpty) {
-    return false;
-  } else {
-    return true;
-  }
-}
+
+
