@@ -18,7 +18,6 @@ mixin HelperRepositoryGetRequest {
         return Right(responseRemoteFunc);
       } catch (e, stackTrace) {
         debugPrint('*** handlerRepository: $e' '\n' 'stackTrace: $stackTrace ');
-        debugPrint(' *** ' + e.toString());
         if (e is Failure) {
           return Left(e);
         } else {

@@ -26,7 +26,7 @@ mixin HelperRepositoryPostRequest {
         }
       }
     } else {
-      return left(Failure(
+      return Left(Failure(
           message: 'NetWork Conection',
           type: ErrorType.socketException));
     }
