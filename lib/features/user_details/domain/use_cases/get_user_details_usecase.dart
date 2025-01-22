@@ -11,6 +11,6 @@ class GetUserDetailsUseCase implements UseCase<UserDetailsEntity, NoParams?> {
 
   @override
   Future<Either<Failure, UserDetailsEntity>> call(NoParams? params) async {
-    return await repository.getAllUserDetails();
+    return await repository.getUserDetails();
   }
 }

@@ -5,13 +5,15 @@ userDetailsServiceLocator() {
       UserDetailsRemoteDataSourceImpl(
           requestManager: getIt<DioRequestManager>()));
 
-  // getIt.registerLazySingleton<UserDetailsRepositoryRemoteDataSource>(
-  //         () => UserDetailsRemoteDataSourceImpl());
+  getIt.registerLazySingleton<UserDetailsLocalDataSource>(
+          () => UserDetailsLocalDataSourceImpl(
+            sharedPreferences: getIt<SharedPreferences>()
+          ));
 
   getIt.registerLazySingleton<UserDetailsRepository>(() =>
       UserDetailsRepositoryImpl(
           remoteDataSource: getIt<UserDetailsRepositoryRemoteDataSource>(),
-          //localDataSource: getIt<UserDetailsRepositoryLocalDataSource>()
+          localDataSource: getIt<UserDetailsLocalDataSource>()
       ));
 
   getIt.registerLazySingleton<GetUserDetailsUseCase>(() =>

@@ -3,22 +3,23 @@ import 'package:user_details/Core/network/dio_request_manager.dart';
 import 'package:user_details/features/user_details/data/models/user_details_model.dart';
 
 abstract class UserDetailsRepositoryRemoteDataSource {
-  Future<UserDetailsModel> getAllUserDetails();
+  Future<UserDetailsModel> getUserDetails();
 }
 
-class UserDetailsRemoteDataSourceImpl implements UserDetailsRepositoryRemoteDataSource {
+class UserDetailsRemoteDataSourceImpl
+    implements UserDetailsRepositoryRemoteDataSource {
   UserDetailsRemoteDataSourceImpl({required this.requestManager});
 
   final DioRequestManager requestManager;
 
   @override
-  Future<UserDetailsModel> getAllUserDetails() async {
+  Future<UserDetailsModel> getUserDetails() async {
     UserDetailsModel userDetailsResult = await requestManager
         .apiCall(
-      requestType: 'GET',
-      url: Config.apiUrl,
-      // queryParameters: params?.toJson()
-    )
+          requestType: 'GET',
+          url: Config.apiUrl,
+          // queryParameters: params?.toJson()
+        )
         .then((value) => UserDetailsModel.fromJson(value.data));
     return userDetailsResult;
   }

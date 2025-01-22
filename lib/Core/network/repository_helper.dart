@@ -13,6 +13,7 @@ mixin HelperRepository {
      if (await networkInfo.isConnected) {
       try {
         var responseRemoteFunc = await remoteFunction();
+
         return Right(responseRemoteFunc);
       } catch (e, stackTrace) {
         debugPrint('*** handlerRepository: $e' '\n' 'stackTrace: $stackTrace ');
