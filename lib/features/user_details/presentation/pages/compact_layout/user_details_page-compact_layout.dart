@@ -33,7 +33,7 @@ class _UserDetailsPageCompactLayoutState
             'Name: ${userDetailsState.name}',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Email: ${userDetailsState.email}',
             style: TextStyle(fontSize: 16),

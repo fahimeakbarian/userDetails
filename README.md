@@ -46,7 +46,7 @@ The following packages are used in this project:
 - **[get_it](https://pub.dev/packages/get_it)**: A service locator for dependency injection.
 - **[dartz](https://pub.dev/packages/dartz)**: Functional programming tools such as `Either`.
 - **[internet_connection_checker](https://pub.dev/packages/internet_connection_checker)**: Checks network connectivity status.
-- - **[shared_preferences](https://pub.dev/packages/shared_preferences)**: For storing simple key-value pairs, such as caching user details for offline access.
+- **[shared_preferences](https://pub.dev/packages/shared_preferences)**: For storing simple key-value pairs, such as caching user details for offline access.
 
 ## Getting Started
 

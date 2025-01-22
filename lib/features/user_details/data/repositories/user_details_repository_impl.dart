@@ -41,8 +41,8 @@ class UserDetailsRepositoryImpl
   Future<Either<Failure, bool>> submitUserPhone(UserParams param) async {
     Either<Failure, dynamic> response =
         await handlerRepositoryPostRequest(remoteFunction: () async {
-      bool submitSucess = await remoteDataSource.submitUserPhone(param);
-      return submitSucess;
+      bool submitSuccess = await remoteDataSource.submitUserPhone(param);
+      return submitSuccess;
     });
     var castedResponse =
         response.bimap<Failure, bool>((l) => l, (r) => r as bool);

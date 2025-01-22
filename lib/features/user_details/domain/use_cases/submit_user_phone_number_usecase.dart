@@ -27,6 +27,7 @@ class UserParams extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'phone': phoneNumber,
+      //add name as fix name
       'name': 'John Doe',
     };
   }
