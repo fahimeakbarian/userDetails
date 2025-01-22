@@ -7,8 +7,8 @@ import 'package:user_details/Core/widgets/error_network_widget.dart';
 import 'package:user_details/Core/widgets/loading_widget.dart';
 import 'package:user_details/features/user_details/presentation/manager/user_details_cubit.dart';
 
-import 'package:user_details/features/user_details/presentation/pages/compact_layout/user_details_page-compact-layout.dart';
-import 'package:user_details/features/user_details/presentation/pages/expand_layout/user_details_page-expand-layout.dart';
+import 'package:user_details/features/user_details/presentation/pages/compact_layout/user_details_page-compact_layout.dart';
+import 'package:user_details/features/user_details/presentation/pages/expand_layout/user_details_page_expand_layout.dart';
 
 class UserDetailsPage extends StatefulWidget {
   const UserDetailsPage({super.key});

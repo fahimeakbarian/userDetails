@@ -1,5 +1,4 @@
 import 'package:user_details/Core/Utils/config.dart';
-import 'package:user_details/Core/network/dio_request_manager.dart';
 import 'package:user_details/Core/service-locator/service_locator_imports.dart';
 import 'package:user_details/features/user_details/data/models/user_details_model.dart';
 
@@ -29,7 +28,7 @@ class UserDetailsRemoteDataSourceImpl
   @override
   Future<bool> submitUserPhone(UserParams userParam) async {
     try{
-        var res= await requestManager
+         await requestManager
           .apiCall(
         requestType: 'POST',
         url: Config.apiUrlPostUser,

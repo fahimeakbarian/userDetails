@@ -58,7 +58,7 @@ class DioRequestManager {
   Future<void> setHeader({String? token}) async {
     String? accessToken;
     if (token == null) {
-      var res = "test";
+      var res = 'token';
       //await getIt<FlutterSecureStorage>().read(key: Config.tokenKey);
       if (res != null && res.runtimeType == Map) {
         accessToken = 'token';
@@ -103,11 +103,11 @@ class DioRequestManager {
           message: 'noInternetConnection', type: ErrorType.socketException);
     } on FormatException catch (e) {
       debugPrint('*** handlerRepository: $e' '\n' 'stackTrace: $e ');
-      debugPrint(' *** ' + e.toString());
+      debugPrint(' *** $e');
       throw Failure(message: e.message, type: ErrorType.formatException);
     } on DioException catch (e) {
       debugPrint('*** handlerRepository: $e' '\n' 'stackTrace: $e ');
-      debugPrint(' *** ' + e.toString());
+      debugPrint(' *** $e');
       if (e.response != null) {
         //only 401 && 403 data response error is empty;(Agree with backend)
         if (e.response?.statusCode != 401 && e.response?.statusCode != 403) {

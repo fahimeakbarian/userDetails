@@ -17,8 +17,8 @@ class NetworkInfoImpl implements NetworkInfo {
       final bool isConnected =
           await connectionChecker.hasConnection;
       return isConnected;
-    } on PlatformException catch (e, stackTrace) {
-      // log(e.message.toString(), stackTrace: stackTrace);
+    } on PlatformException catch (e) {
+
       throw Failure(
           message: 'checkConnectivity hase error' '${e.message.toString()}');
     }
