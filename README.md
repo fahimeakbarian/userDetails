@@ -14,7 +14,7 @@ This project demonstrates a feature module named **"UserDetails"** in Flutter, f
 ## Project Structure
 
 This project follows the **Clean Architecture** principles, which divides the application into three main layers:
-1. **Presentation Layer**: Contains the UI and state management (using BLoC and Cubit).
+1. **Presentation Layer**: Contains the UI and state management (using Cubit).
 2. **Domain Layer**: Contains the business logic, including entities, use cases, and repository contracts.
 3. **Data Layer**: Handles data fetching and persistence, such as remote data sources (API calls).
 
@@ -57,11 +57,17 @@ The following API endpoints are used for this feature module:
 
 1. **Get User Details**
     - **Method:** `GET`
-    - **Endpoint:** `/api/user/details`
+    - **Endpoint:** `https://jsonplaceholder.typicode.com/users/1`
     - **Description:** This endpoint fetches the user's details such as name and email.
 
 2. **Submit User Phone Number**
     - **Method:** `POST`
-    - **Endpoint:** `/api/user/submit-phone`
+    - **Endpoint:** `https://reqres.in/api/users`
     - **Description:** This endpoint accepts the user's phone number and submits it for further processing.
+
+Offline Support
+This module supports offline mode. If there is no internet connection while fetching user details (like name and email), but cached data is available, the cached data will be used to display the user’s information. This feature ensures that the user can still access their information even without an active internet connection.
+
+Note: To test this feature, you can disable the device’s internet connection. If the user’s data has already been cached, it will be used to display the user's name and email.
+This feature is implemented to enhance user experience and ensure data accessibility in case of weak or unavailable internet connectivity.
 
