@@ -7,11 +7,4 @@ class Config {
   static const String tokenKey = 'token';
   static const String selectedUserKey = 'user1';
 
-
-
-
-
-
-
-
 }

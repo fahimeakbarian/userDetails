@@ -9,7 +9,8 @@ Future<void> main()   async {
   WidgetsFlutterBinding.ensureInitialized();
   await setUpServiceLocator();
   Bloc.observer = AppBlocObserver();
-  runApp(Center(
+  runApp(
+      Center(
     child: ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: Config.maxWidth),
       child: const MyApp(),
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

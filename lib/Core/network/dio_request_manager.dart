@@ -23,18 +23,16 @@ class DioRequestManager {
     setInterceptor();
   }
 
-  final _connectionTimeout = const Duration(seconds: 50);
-  final _receiveTimeout = const Duration(seconds: 50);
+  final _connectionTimeout = const Duration(seconds: 10);
+  final _receiveTimeout = const Duration(seconds: 10);
   late Dio _dio;
   String? token;
 
   void setInterceptor() async {
     _dio.interceptors.add(InterceptorsWrapper(
         //     onRequest: (r, handler) async {
-        //   print('${r}1111111111111111111111111111111');
         //   handler.next(r);
         // }, onResponse: (res, handler) async {
-        //   print('${res}22222222222222222222');
         //   handler.next(res);
         // },
         onError: (e, handler) async {
@@ -109,7 +107,7 @@ class DioRequestManager {
       debugPrint('*** handlerRepository: $e' '\n' 'stackTrace: $e ');
       debugPrint(' *** $e');
       if (e.response != null) {
-        //only 401 && 403 data response error is empty;(Agree with backend)
+
         if (e.response?.statusCode != 401 && e.response?.statusCode != 403) {
           //var res = ApiResponse.fromJson(e.response?.data);
           throw Failure.networkException(

@@ -4,11 +4,11 @@ import 'package:user_details/Core/network/failure.dart';
 class ErrorNetWorkWidget extends StatelessWidget {
   const ErrorNetWorkWidget(
       {super.key, this.title,
-        //required this.retryFunc,
+        required this.retryFunc,
         this.failure});
 
   final String? title;
-  //final Function retryFunc;
+  final Function retryFunc;
   final Failure? failure;
 
   @override
@@ -43,7 +43,7 @@ class ErrorNetWorkWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
               child: FilledButton(
-                  onPressed: () {},
+                  onPressed: retryFunc(),
                   child: const Row(
                     children: [
                       Icon(

@@ -29,7 +29,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment:CrossAxisAlignment.center ,
             children: [
               BlocListener<UserDetailsCubit, UserDetailsState>(
                 listener: (context, state) {
@@ -60,6 +61,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                     } else if (state is UserDetailsFailure) {
                       return ErrorNetWorkWidget(
                         title: state.errorMessage,
+                        retryFunc: ()=>context.read<UserDetailsCubit>().getUserDetails(),
                       );
                     } else {
                       return Container();
