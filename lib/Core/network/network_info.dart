@@ -7,15 +7,15 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  NetworkInfoImpl();
+  NetworkInfoImpl({ required this.connectionChecker});
 
-  final connectionChecker = InternetConnectionChecker.instance;
+  final InternetConnectionChecker connectionChecker;
 
   @override
   Future<bool> get isConnected async {
     try {
       final bool isConnected =
-          await InternetConnectionChecker.instance.hasConnection;
+          await connectionChecker.hasConnection;
       return isConnected;
     } on PlatformException catch (e, stackTrace) {
       // log(e.message.toString(), stackTrace: stackTrace);

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:user_details/Core/Utils/enums.dart';
 import 'package:user_details/Core/network/failure.dart';
 import 'package:user_details/Core/network/network_info.dart';
+import 'package:user_details/Core/service-locator/service_locator.dart';
 
 mixin HelperRepository {
   Future<Either<Failure, dynamic>> handlerRepository(
       {required Future<dynamic> Function() remoteFunction,
         Future<dynamic> Function()? localFunction}) async {
-    NetworkInfo networkInfo = NetworkInfoImpl();
-    // if (await networkInfo.isConnected) {
-    if (true) {
+    NetworkInfo networkInfo = getIt<NetworkInfo>();
+     if (await networkInfo.isConnected) {
       try {
         var responseRemoteFunc = await remoteFunction();
         return Right(responseRemoteFunc);
@@ -24,7 +24,8 @@ mixin HelperRepository {
               Failure(message: e.toString(), type: ErrorType.formatException));
         }
       }
-    } else {
+    } else
+    {
       if (localFunction != null) {
         try {
           final localFunc = await localFunction();
