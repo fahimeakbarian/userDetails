@@ -21,7 +21,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
   Future<void> submitPhoneNumber(String phoneNumber) async {
     var currentState = state as UserDetailsSuccess;
 
-    emit(currentState.copyWith(buttonLoading: true));
+    emit(currentState.copyWith(buttonLoading: true, apiStatus: ApiStatus.non));
     final result = await submitUserPhoneNumberUseCase
         .call(UserParams(phoneNumber: phoneNumber));
     result.fold((l) {
