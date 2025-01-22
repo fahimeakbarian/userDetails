@@ -24,7 +24,9 @@ class UserDetailsRepositoryImpl with HelperRepository implements UserDetailsRepo
         await handlerRepository(remoteFunction: () async {
       UserDetailsModel userDetailsInfoApi =
       await remoteDataSource.getUserDetails();
+
       localDataSource.cacheUserDetails(userDetailsInfoApi);
+
       UserDetailsEntity userDetails=userDetailsInfoApi;
       return userDetails;
     },localFunction: ()async {
