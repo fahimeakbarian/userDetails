@@ -4,3 +4,10 @@ enum ConnectionStatus {
   online,
   offline,
 }
+
+enum ApiStatus{
+  non,
+  waiting,
+  finishWithSuccess,
+  finishWithError
+}

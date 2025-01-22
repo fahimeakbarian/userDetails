@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:user_details/Core/Utils/enums.dart';
 import 'package:user_details/Core/usecase/usecase.dart';
 import 'package:user_details/features/user_details/data/models/user_details_model.dart';
 import 'package:user_details/features/user_details/domain/use_cases/get_user_details_usecase.dart';
@@ -21,12 +22,18 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
     var currentState = state as UserDetailsSuccess;
 
     emit(currentState.copyWith(buttonLoading: true));
-    final result = await submitUserPhoneNumberUseCase.call(UserParams(phoneNumber: phoneNumber));
+    final result = await submitUserPhoneNumberUseCase
+        .call(UserParams(phoneNumber: phoneNumber));
     result.fold((l) {
-
-      emit( currentState.copyWith(buttonLoading: false, submitSuccess: false));
+      emit(currentState.copyWith(
+          buttonLoading: false,
+          submitSuccess: false,
+          apiStatus: ApiStatus.finishWithError));
     }, (r) {
-      emit( currentState.copyWith(buttonLoading: false, submitSuccess: true));
+      emit(currentState.copyWith(
+          buttonLoading: false,
+          submitSuccess: true,
+          apiStatus: ApiStatus.finishWithSuccess));
     });
   }
 
@@ -41,6 +48,7 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
           name: user.name,
           id: user.id,
           email: user.email,
+          apiStatus: ApiStatus.non,
           buttonLoading: false,
           submitSuccess: false));
     });

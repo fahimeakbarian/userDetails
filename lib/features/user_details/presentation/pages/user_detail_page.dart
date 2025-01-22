@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_details/Core/Utils/config.dart';
+import 'package:user_details/Core/Utils/enums.dart';
 import 'package:user_details/Core/service-locator/service_locator.dart';
 import 'package:user_details/Core/widgets/error_network_widget.dart';
 import 'package:user_details/Core/widgets/loading_widget.dart';
@@ -17,8 +18,6 @@ class UserDetailsPage extends StatefulWidget {
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -29,46 +28,47 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BlocListener<UserDetailsCubit, UserDetailsState>(
-                  listener: (context, state) {
-                    if (state is UserDetailsSuccess && state.submitSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('User Phone submitted successfully'),
-                        ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BlocListener<UserDetailsCubit, UserDetailsState>(
+                listener: (context, state) {
+                  if (state is UserDetailsSuccess &&
+                      state.submitSuccess &&
+                      state.apiStatus == ApiStatus.finishWithSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('User Phone submitted successfully'),
+                      ),
+                    );
+                  } else if (state is UserDetailsSuccess &&
+                      !state.submitSuccess &&
+                      state.apiStatus == ApiStatus.finishWithError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('User Phone submission failed'),
+                      ),
+                    );
+                  }
+                },
+                child: BlocBuilder<UserDetailsCubit, UserDetailsState>(
+                  builder: (context, state) {
+                    if (state is UserDetailsLoading) {
+                      return const LoadingWidget();
+                    } else if (state is UserDetailsSuccess) {
+                      return const ContentWidget();
+                    } else if (state is UserDetailsFailure) {
+                      return ErrorNetWorkWidget(
+                        title: state.errorMessage,
                       );
-                    } else if (state is UserDetailsSuccess &&
-                        !state.submitSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('User Phone submission failed'),
-                        ),
-                      );
+                    } else {
+                      return Container();
                     }
                   },
-                  child: BlocBuilder<UserDetailsCubit, UserDetailsState>(
-                    builder: (context, state) {
-                      if (state is UserDetailsLoading) {
-                        return const LoadingWidget();
-                      } else if (state is UserDetailsSuccess) {
-                        return const ContentWidget();
-                      } else if (state is UserDetailsFailure) {
-                        return ErrorNetWorkWidget(
-                          title: state.errorMessage,
-                        );
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
                 ),
-
-              ],
-            ),
-
+              ),
+            ],
+          ),
         ),
       ),
     );

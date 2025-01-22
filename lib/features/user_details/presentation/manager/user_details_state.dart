@@ -21,6 +21,7 @@ class UserDetailsSuccess extends UserDetailsState {
         required this.email,
         required this.buttonLoading,
         required this.submitSuccess,
+        required this.apiStatus,
      });
 
   final String name;
@@ -28,17 +29,19 @@ class UserDetailsSuccess extends UserDetailsState {
   final String email;
   final bool buttonLoading;
   final bool submitSuccess;
+  final ApiStatus apiStatus;
 
 
   @override
-  List<Object> get props => [name, id, email,buttonLoading,submitSuccess];
+  List<Object> get props => [name, id, email,buttonLoading,submitSuccess,apiStatus];
 
   UserDetailsSuccess copyWith({
     String? name,
     String? email,
     int? id,
     bool? buttonLoading,
-    bool? submitSuccess
+    bool? submitSuccess,
+    ApiStatus? apiStatus
 
   }) {
     return UserDetailsSuccess(
@@ -47,6 +50,7 @@ class UserDetailsSuccess extends UserDetailsState {
       id: id ?? this.id,
       buttonLoading: buttonLoading ?? this.buttonLoading,
       submitSuccess: submitSuccess ?? this.submitSuccess,
+      apiStatus: apiStatus??  this.apiStatus
     );
   }
 }
