@@ -10,39 +10,39 @@ part 'user_details_state.dart';
 
 class UserDetailsCubit extends Cubit<UserDetailsState> {
   UserDetailsCubit(
-      {required this.getUserDetailsUseCase,required this.submitUserPhoneNumberUseCase})
+      {required this.getUserDetailsUseCase,
+      required this.submitUserPhoneNumberUseCase})
       : super(UserDetailsInitial());
-
 
   final GetUserDetailsUseCase getUserDetailsUseCase;
   final SubmitUserPhoneNumberUseCase submitUserPhoneNumberUseCase;
 
+  Future<void> submitPhoneNumber(String phoneNumber) async {
+    var currentState = state as UserDetailsSuccess;
 
-  // Future<void> submitPhoneNumber(String phoneNumber) async {
-  //   emit(UserDetailsLoading());
-  //
-  //   try {
-  //     // Execute the use case
-  //     final result = await submitUserPhoneNumberUseCase(phoneNumber);
-  //
-  //     // On success
-  //     emit(UserDetailsSuccess(result));
-  //   } catch (error) {
-  //     // On failure
-  //     emit(UserDetailsFailure(error.toString()));
-  //   }
-  // }
+    emit(currentState.copyWith(buttonLoading: true));
+    final result = await submitUserPhoneNumberUseCase.call(UserParams(phoneNumber: phoneNumber));
+    result.fold((l) {
+
+      emit( currentState.copyWith(buttonLoading: false, submitSuccess: false));
+    }, (r) {
+      emit( currentState.copyWith(buttonLoading: false, submitSuccess: true));
+    });
+  }
 
   Future<void> getUserDetails() async {
     emit(UserDetailsLoading());
-
-      final userApiResponse = await getUserDetailsUseCase.call(NoParams());
+    final userApiResponse = await getUserDetailsUseCase.call(NoParams());
     userApiResponse.fold((l) {
-      emit(UserDetailsFailure(errorMessage: l.message??'api error'));
+      emit(UserDetailsFailure(errorMessage: l.message ?? 'api error'));
     }, (r) {
       var user = r as UserDetailsModel;
-      emit(UserDetailsSuccess(name: user.name,id: user.id, email: user.email));
+      emit(UserDetailsSuccess(
+          name: user.name,
+          id: user.id,
+          email: user.email,
+          buttonLoading: false,
+          submitSuccess: false));
     });
-
   }
 }

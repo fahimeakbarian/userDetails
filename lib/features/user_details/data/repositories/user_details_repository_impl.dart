@@ -1,14 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:user_details/Core/network/failure.dart';
-import 'package:user_details/Core/network/repository_helper.dart';
+import 'package:user_details/Core/network/helper_repository_get_request_.dart';
+import 'package:user_details/Core/network/helper_repository_post_request.dart';
 import 'package:user_details/Core/service-locator/service_locator_imports.dart';
-import 'package:user_details/features/user_details/data/data_sources/local_data_source/user_details_local_data_source.dart';
-import 'package:user_details/features/user_details/data/data_sources/remote_data_source/user-details_remote-data_source.dart';
 import 'package:user_details/features/user_details/data/models/user_details_model.dart';
 import 'package:user_details/features/user_details/domain/entities/user_details_entity.dart';
-import 'package:user_details/features/user_details/domain/repositories/user_details_repository.dart';
 
-class UserDetailsRepositoryImpl with HelperRepository implements UserDetailsRepository {
+
+class UserDetailsRepositoryImpl with HelperRepositoryGetRequest,
+    HelperRepositoryPostRequest
+    implements UserDetailsRepository {
   UserDetailsRepositoryImpl({
     required this.remoteDataSource,
      required this.localDataSource,
@@ -22,7 +23,7 @@ class UserDetailsRepositoryImpl with HelperRepository implements UserDetailsRepo
   @override
   Future<Either<Failure, UserDetailsEntity>> getUserDetails() async  {
     Either<Failure, dynamic> response =
-        await handlerRepository(remoteFunction: () async {
+        await handlerRepositoryGetRequest(remoteFunction: () async {
       UserDetailsModel userDetailsInfoApi =
       await remoteDataSource.getUserDetails();
 
@@ -42,10 +43,9 @@ class UserDetailsRepositoryImpl with HelperRepository implements UserDetailsRepo
   @override
   Future<Either<Failure, bool>> submitUserPhone(UserParams param) async  {
     Either<Failure, dynamic> response =
-        await handlerRepository(remoteFunction: () async {
+        await handlerRepositoryPostRequest(remoteFunction: () async {
       bool submitSucess =
       await remoteDataSource.submitUserPhone(param);
-
       return submitSucess;
     });
     var castedResponse =

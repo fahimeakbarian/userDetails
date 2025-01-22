@@ -5,10 +5,11 @@ import 'package:user_details/Core/network/failure.dart';
 import 'package:user_details/Core/network/network_info.dart';
 import 'package:user_details/Core/service-locator/service_locator.dart';
 
-mixin HelperRepository {
-  Future<Either<Failure, dynamic>> handlerRepository(
+mixin HelperRepositoryGetRequest {
+  Future<Either<Failure, dynamic>> handlerRepositoryGetRequest(
       {required Future<dynamic> Function() remoteFunction,
-        Future<dynamic> Function()? localFunction}) async {
+        Future<dynamic> Function()? localFunction
+      }) async {
     NetworkInfo networkInfo = getIt<NetworkInfo>();
      if (await networkInfo.isConnected) {
       try {
@@ -34,7 +35,8 @@ mixin HelperRepository {
         } catch (e) {
           return Left(Failure(message: e.toString()));
         }
-      } else {
+      }
+      else {
         return const Left(
             Failure(message: 'LocalDataSource   Not implemented '));
       }

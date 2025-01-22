@@ -29,7 +29,7 @@ class UserDetailsRemoteDataSourceImpl
   @override
   Future<bool> submitUserPhone(UserParams userParam) async {
     try{
-        await requestManager
+        var res= await requestManager
           .apiCall(
         requestType: 'POST',
         url: Config.apiUrlPostUser,
